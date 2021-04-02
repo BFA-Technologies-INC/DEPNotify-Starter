@@ -32,6 +32,35 @@
 
 # More information at: https://github.com/jamfprofessionalservices/DEP-Notify
 
+#Jamf Parameters
+# Parameter $4
+# Testing Mode (True/False)
+# Parameter $5
+# Fullscreen Mode (True/False)
+# Parameter $6
+# No Sleep / Caffeinate Mode (True/False)
+# Parameter $7
+# Self Service Custom Branding (True/False)
+# Parameter $8
+# Complete method dropdown or main screen (True/False)
+# Parameter $9
+# EULA Mode (True/False)
+# Parameter $10
+# Registration Mode (True/False)
+
+#########################################################################################
+#Removing DEPNotify from quarentine
+#########################################################################################
+#pulling DEPNotify out of apple quarentine for Big Sur machines
+BUILD=$(/usr/bin/sw_vers -buildVersion | awk {'print substr ($0,0,2)'})
+if [[ $BUILD -ge 20 ]] ; then
+  echo "device on or above Big Sur, pulling DEPNotify out of quarantine"
+  /usr/bin/xattr -dr com.apple.quarantine /Applications/Utilities/DEPNotify.app
+else
+  echo "device below Big Sur, do not remove DEPNotify from quarantine"
+  
+fi
+
 #########################################################################################
 # Testing Mode
 #########################################################################################
